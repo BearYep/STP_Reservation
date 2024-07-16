@@ -1,1 +1,0 @@
-import{_}from"./CLjuAip5.js";import{_ as r}from"./DlAUqK2U.js";import{c as a,d as t,b as o,w as e,r as s,o as m}from"./CmhL91Re.js";const l={};function u(d,f){const n=s("Button"),c=_;return m(),a("div",null,[t(" 測試 "),o(c,{to:"a"},{default:e(()=>[o(n,null,{default:e(()=>[t("到下一頁")]),_:1})]),_:1})])}const B=r(l,[["render",u]]);export{B as default};
