@@ -1,0 +1,1 @@
+import{_}from"./CLjuAip5.js";import{_ as a}from"./DlAUqK2U.js";import{c as r,d as t,b as o,w as e,r as s,o as m}from"./CmhL91Re.js";const l={};function u(f,p){const n=s("Button"),c=_;return m(),r("div",null,[t(" acc "),o(c,{to:"/"},{default:e(()=>[o(n,null,{default:e(()=>[t("回上一頁")]),_:1})]),_:1})])}const B=a(l,[["render",u]]);export{B as default};
