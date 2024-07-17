@@ -1,0 +1,1 @@
+import{_}from"./XgzWlc3I.js";import{_ as a}from"./BTlQ66Qh.js";import{_ as r}from"./DlAUqK2U.js";import{c as s,d as t,b as o,w as e,o as m}from"./cLPuv5F0.js";const f={};function i(l,p){const n=_,c=a;return m(),s("div",null,[t(" acc "),o(c,{to:"/"},{default:e(()=>[o(n,null,{default:e(()=>[t("回上一頁")]),_:1})]),_:1})])}const B=r(f,[["render",i]]);export{B as default};
