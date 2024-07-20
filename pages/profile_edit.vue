@@ -24,7 +24,7 @@
         <FormItem>
           <FormLabel>電話</FormLabel>
           <FormControl>
-            <Input type="text" placeholder="請輸入您的電話號碼(手機)" v-bind="componentField" />
+            <Input type="text" placeholder="請輸入您的電話號碼（手機）" v-bind="componentField" />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -34,7 +34,7 @@
         <FormItem>
           <FormLabel>學校</FormLabel>
           <FormControl>
-            <Input type="text" placeholder="請輸入您的學校" v-bind="componentField" />
+            <Input type="text" placeholder="請輸入學校全名，eg：國立台灣大學" v-bind="componentField" />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -44,7 +44,7 @@
         <FormItem>
           <FormLabel>科系</FormLabel>
           <FormControl>
-            <Input type="text" placeholder="請輸入您的科系" v-bind="componentField" />
+            <Input type="text" placeholder="請輸入系所全名，eg：工商管理學系" v-bind="componentField" />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -54,7 +54,7 @@
         <FormItem>
           <FormLabel>綽號/暱稱</FormLabel>
           <FormControl>
-            <Input type="text" placeholder="請輸入您的綽號或暱稱" v-bind="componentField" />
+            <Input type="text" placeholder="請輸入您的綽號或暱稱（請注意中文不要超過六個字）" v-bind="componentField" />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -82,9 +82,18 @@
         </FormItem>
       </FormField>
 
+      <div class="flex flex-rows gap-3">
       <Button type="submit">
-        送出修改
+        送出
       </Button>
+      <NuxtLink
+        to="/"
+      >
+      <Button type="button">
+        回到首頁
+      </Button>
+      </NuxtLink>
+    </div>
     </Form>
   </CardContent>
   </Card>
@@ -117,12 +126,12 @@ const {data: user, error, refresh} = useAsyncData('get_user', async () => {
 })
 
 const schema = yup.object({
-  name: yup.string().min(1, "此為必填資料").required(),
-  phone: yup.string().min(10, "電話應為10位").max(10, "電話應為10位").required(),
-  school: yup.string().min(1, "此為必填資料").required(),
-  department: yup.string().min(1,"此為必填資料").required(),
-  nick_name: yup.string().min(1,"此為必填資料").max(5).required(),
-  mbti: yup.string().min(1, "此為必填資料").required()
+  name: yup.string().min(1, "此為必填資料").required("此為必填資料"),
+  phone: yup.string().min(10, "電話應為10位").max(10, "電話應為10位").required("此為必填資料"),
+  school: yup.string().min(1, "此為必填資料").required("此為必填資料"),
+  department: yup.string().min(1,"此為必填資料").required("此為必填資料"),
+  nick_name: yup.string().min(1,"此為必填資料").max(10, "暱稱應為10位以下").required("此為必填資料"),
+  mbti: yup.string().min(1, "此為必填資料").required("此為必填資料")
 });
 
 const onSubmit = async (values: any) => {
@@ -139,6 +148,7 @@ const onSubmit = async (values: any) => {
     "nick_name": values.nick_name,
     "mbti": values.mbti
   })
+  const toast_string = "本名：" + values.name + "\n電話：" + values.phone + "\n學校：" + values.school + "\n科系：" + values.department + "\n綽號/暱稱：" + values.nick_name + "\nMBTI：" + values.mbti
   if(error){
     toast({
     title: '未知的錯誤！資料尚未更新完成，請聯繫工作人員！',
@@ -148,7 +158,7 @@ const onSubmit = async (values: any) => {
   else{
     toast({
       title: '資料修改完成！',
-      description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(values, null, 2))),
+      description: h('pre', { class: 'mt-2 w-[340px] rounded-md' }, h('code', { class: 'text-black' },  toast_string)),
     })
     await refresh();
   }

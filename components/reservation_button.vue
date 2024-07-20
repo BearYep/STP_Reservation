@@ -89,13 +89,13 @@
         </Button>
       </DialogContent>
     </Dialog>
-    <Button v-if="data.user_id === user?.id" class="bg-green-500 text-white px-4 py-1 rounded-full h-[40px] w-[75px]" disabled>
+    <Button v-if="data.user_id === user?.id" class="bg-green-600 text-white px-4 py-1 rounded-full h-[40px] w-[75px]" disabled>
       <div class='flex flex-col text-xs'>
       <div>{{ data.app_user?.nick_name ? data.app_user?.nick_name : '無'}}</div>
       <div> {{ data.app_user?.mbti ? data.app_user?.mbti : '無'}}</div>
       </div>
     </Button>
-    <Button v-else-if="data.status === 'taken'" variant='destructive' class="rounded-full h-[40px] w-[75px]" disabled>
+    <Button v-else-if="data.status === 'taken'" class="bg-sky-800 rounded-full h-[40px] w-[75px]" disabled>
       <div class='flex flex-col text-xs'>
       <div>{{ data.app_user?.nick_name ? data.app_user?.nick_name : '無'}}</div>
       <div> {{ data.app_user?.mbti ? data.app_user?.mbti : '無'}}</div>
@@ -149,7 +149,6 @@ async function sendReservation(group: number, number: number, id: string){
   })
   toast({
       title: '已送出預約資料!',
-      description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify({group, number, id}, null, 2))),
   })
 
   await props.data_refresh();
@@ -169,7 +168,7 @@ const AuthMethods = {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.protocol + "//" + window.location.host + "/auth/callback",
+        redirectTo: window.location.protocol + "//bearyep.github.io/STP_Reservation/" + "/auth/callback",
       },
     });
   },

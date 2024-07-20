@@ -1,7 +1,7 @@
 <template>
   <div class='flex flex-col gap-7'>
   <top class="px-2 md:px-4 sticky top-4 z-20"/>
-  <div class="container mx-auto px-4 border-2 flex flex-col gap-2">
+  <div class="container mx-auto px-4 flex flex-col gap-2">
   <div>
     <div class="font-bold text-2xl">STP暑期黑馬營劃位</div>
     <div class="text-gray-500">說明文字...</div>
@@ -10,11 +10,27 @@
   <div class='border-2 h-[5px]'></div>
   <div class='container mx-auto overflow-x-auto'>
   <div class="flex flex-col gap-10" v-if="list">
-    <div class="flex flex-row gap-[50px] w-[1300px] justify-center">
-      <div class="w-[350px] h-[50px] border-2 flex place-content-center place-items-center">投影幕</div>
-      <div class="w-[200px] h-[50px] border-2 flex place-content-center place-items-center">講台</div>
-      <div class="w-[350px] h-[50px] border-2 flex place-content-center place-items-center">投影幕</div>
+    <div class="flex flex-row w-[1225px]">
+      <div class='flex flex-col w-[100px] h-[60px]'>
+        <div class='text-sm w-[100px] h-[20px]'>
+          <Icon name='ph:circle' style="color: rgb(0 0 0 / 0.5)"/>
+          ：可預約
+        </div>
+        <div class='text-sm w-[100px] h-[20px]'>
+          <Icon name='ph:circle-duotone' style="color: rgb(22 163 74 / 0.5)"/>
+          ：您的位置
+        </div>
+        <div class='text-sm w-[100px] h-[20px]'>
+          <Icon name='ph:circle-duotone' style="color: rgb(59 130 246 / 0.5)" />
+          ：已預約
+        </div>
+      </div>
+    <div class="flex flex-row gap-[50px] w-[1125px] justify-center">
+      <div class="w-[350px] h-[60px] border-2 flex place-content-center place-items-center">投影幕</div>
+      <div class="w-[200px] h-[60px] border-2 flex place-content-center place-items-center">講台</div>
+      <div class="w-[350px] h-[60px] border-2 flex place-content-center place-items-center">投影幕</div>
     </div>
+  </div>
     <div class="flex flex-row gap-10">
     <GroupTable
       :user="user"
