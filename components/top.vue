@@ -84,7 +84,7 @@ const AuthMethods = {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.protocol + "//" + window.location.host + "/auth/callback",
+        redirectTo: window.location.protocol + "//" + host_url + "/auth/callback",
       },
     });
   },
