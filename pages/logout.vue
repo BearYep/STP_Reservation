@@ -7,6 +7,7 @@
     </div>
   </div>
 </template>
+
 <script lang="ts" setup>
 const supabase = useSupabaseClient();
 

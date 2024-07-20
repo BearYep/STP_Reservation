@@ -1,70 +1,201 @@
 <template>
+  <div class='flex flex-col gap-7'>
+  <top class="px-2 md:px-4 sticky top-4 z-20"/>
+  <div class="container mx-auto px-4 border-2 flex flex-col gap-2">
   <div>
-    <div
-      v-for="(data, index) in list" 
-      :key="index"
-    >
-      <span>
-        {{ data.name }}
-      </span>
-    </div>
-    測試
-    <NuxtLink to="a">
-      <Button>
-        到下一頁
-      </Button>
-    </NuxtLink>
-
-    <Button
-      v-if="!supabaseUser"
-      class="w-full flex"
-      variant="outline"
-      @click="AuthMethods.loginWithGoogle"
-    >
-      <Icon name="devicon:google" />
-      <span class="w-full">透過 Google 登入</span>
-    </Button>
-    <div v-if="supabaseUser">{{ supabaseUser.id }} , email: {{ supabaseUser.email }}</div>
-    <Button
-      v-if="supabaseUser"
-      class="w-full flex"
-      variant="outline"
-      @click="navigateTo('/logout')"
-    >
-      <Icon name="devicon:google" />
-      <span class="w-full">登出</span>
-    </Button>
+    <div class="font-bold text-2xl">STP暑期黑馬營劃位</div>
+    <div class="text-gray-500">說明文字...</div>
+    <img src="https://images.plurk.com/5nmKlgKPdXuUiCcLjdLHvR.jpg" class='w-[1364px]'>
   </div>
-
+  <div class='border-2 h-[5px]'></div>
+  <div class='container mx-auto overflow-x-auto'>
+  <div class="flex flex-col gap-10" v-if="list">
+    <div class="flex flex-row gap-[50px] w-[1300px] justify-center">
+      <div class="w-[350px] h-[50px] border-2 flex place-content-center place-items-center">投影幕</div>
+      <div class="w-[200px] h-[50px] border-2 flex place-content-center place-items-center">講台</div>
+      <div class="w-[350px] h-[50px] border-2 flex place-content-center place-items-center">投影幕</div>
+    </div>
+    <div class="flex flex-row gap-10">
+    <GroupTable
+      :user="user"
+      :list="list![0]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+    <GroupTable
+      :user="user"
+      :list="list![1]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+    <GroupTable
+      :user="user"
+      :list="list![2]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+    <GroupTable
+      :user="user"
+      :list="list![3]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+  </div>
+    <div class="flex flex-row gap-10">
+    <GroupTable
+      :user="user"
+      :list="list![4]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+  
+    <GroupTable
+      :user="user"
+      :list="list![5]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+    <GroupTable
+      :user="user"
+      :list="list![6]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+    <GroupTable
+      :user="user"
+      :list="list![7]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+  </div>
+  <div class="flex flex-row gap-10">
+    <GroupTable
+      :user="user"
+      :list="list![10]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+    <GroupTable
+      :user="user"
+      :list="list![8]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+    
+    <GroupTable
+      :user="user"
+      :list="list![9]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+    
+    <GroupTable
+      :user="user"
+      :list="list![11]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+  </div>
+  <div class="flex flex-row gap-10" v-if="list![12][0].status !== 'lock'">
+    <GroupTable
+      :user="user"
+      :list="list![14]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+    <GroupTable
+      :user="user"
+      :list="list![12]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+    <GroupTable
+      :user="user"
+      :list="list![13]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+    <GroupTable
+      :user="user"
+      :list="list![15]"
+      :data_refresh="data_refresh"
+      :personal_refresh="personal_refresh"
+      :your_seat="your_seat"
+    />
+  </div>
+  </div>
+</div>
+</div>
+</div>
 </template>
 
 <script lang="ts" setup>
 import type { Database } from '~/database.types';
 const supabase = useSupabaseClient<Database>();
 const supabaseUser = useSupabaseUser();
-const {data: list, error} = useAsyncData('get_data', async () => {
-  const { data , error} = await supabase.from("reservation_list").select();
+
+const {data: user, error: user_error, refresh: user_refresh} = useAsyncData('get_user', async () => {
+  const { data , error} = await supabase.from("app_user").select("*").eq('id', supabaseUser.value.id);
   if(error){
     return null;
   }
-  return data;
+  return data[0];
 })
 
-const AuthMethods = {
-  async loginWithGoogle() {
-    const host_url = ref('');
-    if(window.location.host === 'localhost:3000'){
-      host_url.value = 'localhost:3000'
+const {data: list, error: data_error, refresh: data_refresh} = useAsyncData('get_data', async () => {
+  const { data: list , error} = await supabase.from("seat").select("*, app_user(*)").order("number", {ascending: true});
+  if(error){
+    return null;
+  }
+  let group_list = []
+  const seat_list = []
+  for(let i = 1; i <= 16; i++){
+    for(let j = 0; j < list.length; j++){
+      if(list[j].group === i){
+        group_list.push(list[j]);
+      }
     }
-    else{
-      host_url.value = 'bearyep.github.io/STP_Reservation/'
+    seat_list.push(group_list);
+    group_list = [];
+  }
+  return seat_list;
+})
+
+async function handleList(list: any){
+  let group_list = []
+  const seat_list = []
+  for(let i = 1; i <= 14; i++){
+    for(let j = 0; j < list.length; j++){
+      if(list[j].group === i){
+        group_list.push(list[j]);
+      }
     }
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: window.location.protocol + "//" + host_url.value + "/auth/callback",
-      },
-    });
-  },
+    seat_list.push(group_list);
+    group_list = [];
+  }
+  return seat_list;
 }
+
+const {data: your_seat, error, refresh: personal_refresh} = useAsyncData('get_personal_data', async () => {
+  const { data: personal , error} = await supabase.from("seat").select("*, app_user(*)").eq("user_id", supabaseUser.value.id);
+  if(error){
+    return null;
+  }
+  return personal;
+})
 </script>

@@ -1,6 +1,10 @@
 <template>
   <div>
-    正在登入...
+    <div class="flex items-center justify-center h-[100vh]">
+      <div class="flex flex-col items-center space-y-4">
+        <div>正在登入...</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,12 +19,10 @@ const user = ref({
 })
 
 onMounted(async () => {
-  console.log(supabaseUser.value)
   if(user.value){
-    console.log(user.value)
     const { data } = await supabase.from("app_user").select("*").eq("id", user.value!.id!).single();
     if (data) {
-      if (!data.first_time) {
+      if (data.first_time) {
         navigateTo("/profile_edit");
         return;
       }
@@ -34,7 +36,6 @@ onMounted(async () => {
         "first_time": true,
       });
       if(error){
-        console.log(error);
         navigateTo("/");
         return;
       }

@@ -20,6 +20,7 @@ export type Database = {
           name: string | null
           nick_name: string | null
           phone: string | null
+          reservation_status: boolean
           school: string | null
         }
         Insert: {
@@ -32,6 +33,7 @@ export type Database = {
           name?: string | null
           nick_name?: string | null
           phone?: string | null
+          reservation_status?: boolean
           school?: string | null
         }
         Update: {
@@ -44,6 +46,7 @@ export type Database = {
           name?: string | null
           nick_name?: string | null
           phone?: string | null
+          reservation_status?: boolean
           school?: string | null
         }
         Relationships: []
@@ -65,6 +68,35 @@ export type Database = {
           name?: string | null
         }
         Relationships: []
+      }
+      seat: {
+        Row: {
+          group: number
+          number: number
+          status: string | null
+          user_id: string | null
+        }
+        Insert: {
+          group?: number
+          number: number
+          status?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          group?: number
+          number?: number
+          status?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "seat_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "app_user"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

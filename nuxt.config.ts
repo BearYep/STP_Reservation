@@ -12,5 +12,5 @@ export default defineNuxtConfig({
   shadcn: {
     componentDir: './components/ui'
   },
-  modules:['@nuxtjs/supabase', "@nuxtjs/tailwindcss", "shadcn-nuxt"]
+  modules:['@nuxtjs/supabase', "@nuxtjs/tailwindcss", "shadcn-nuxt", 'nuxt-icon']
 })
