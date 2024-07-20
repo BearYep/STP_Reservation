@@ -31,6 +31,9 @@
                 <DropdownMenuItem class="cursor-pointer" @click="navigateTo('/profile_edit')">
                     個人資料編輯
                 </DropdownMenuItem>
+                <DropdownMenuItem v-if='check_admin' class="cursor-pointer" @click="navigateTo('/backside')">
+                    後臺管理
+                </DropdownMenuItem>
                 <DropdownMenuItem class="cursor-pointer" @click="navigateTo('/logout')">
                     登出
                 </DropdownMenuItem>
@@ -60,6 +63,14 @@
 import type { Database } from '~/database.types';
 const supabase = useSupabaseClient<Database>();
 const supabaseUser = useSupabaseUser();
+
+const { data:check_admin , error, refresh } = useAsyncData('get_admin', async () =>{
+  const { data , error} = await supabase.from("admin").select("*").eq("id", supabaseUser.value.id);
+  if(error){
+    return null;
+  }
+  return data[0];
+})
 
 const router = useRouter();
 // [Methods]

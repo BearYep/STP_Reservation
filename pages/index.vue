@@ -7,9 +7,9 @@
     <div class="text-gray-500">說明文字...</div>
     <img src="https://images.plurk.com/5nmKlgKPdXuUiCcLjdLHvR.jpg" class='w-[1364px]'>
   </div>
-  <div class='border-2 h-[5px]'></div>
+  <div class='border-2 h-[1px]'></div>
   <div class='container mx-auto overflow-x-auto'>
-  <div class="flex flex-col gap-10" v-if="list">
+  <div class="flex flex-col gap-10" v-if="list && supabaseUser">
     <div class="flex flex-row w-[1225px]">
       <div class='flex flex-col w-[100px] h-[60px]'>
         <div class='text-sm w-[100px] h-[20px]'>
@@ -155,6 +155,7 @@
     />
   </div>
   </div>
+  <div v-else class='flex h-[50px] justify-center gap-5 text-gray-600'>請登入以查看預約列表及進行預約服務。</div>
 </div>
 </div>
 </div>
@@ -165,25 +166,17 @@ import type { Database } from '~/database.types';
 const supabase = useSupabaseClient<Database>();
 const supabaseUser = useSupabaseUser();
 
-
 const {data: user, error: user_error, refresh: user_refresh} = useAsyncData('get_user', async () => {
-  if(supabaseUser.value){
-    const { data , error} = await supabase.from("app_user").select("*").eq('id', supabaseUser.value.id);
-    if(error){
-      console.log(error);
-      return null;
-    }
-    return data[0];
+  const { data , error} = await supabase.from("app_user").select("*").eq('id', supabaseUser.value.id);
+  if(error){
+    return null;
   }
-  else{
-    return null
-  }
+  return data[0];
 })
 
 const {data: list, error: data_error, refresh: data_refresh} = useAsyncData('get_data', async () => {
   const { data: list , error} = await supabase.from("seat").select("*, app_user(*)").order("number", {ascending: true});
   if(error){
-    console.log(error);
     return null;
   }
   let group_list = []
@@ -216,25 +209,14 @@ async function handleList(list: any){
 }
 
 const {data: your_seat, error, refresh: personal_refresh} = useAsyncData('get_personal_data', async () => {
-  if(supabaseUser.value){
   const { data: personal , error} = await supabase.from("seat").select("*, app_user(*)").eq("user_id", supabaseUser.value.id);
   if(error){
-    console.log(error);
     return null;
   }
   return personal;
-  }
-  else{
-    return null;
-  }
 })
 
-onMounted(async() => {
-  if(supabaseUser.value){
-  console.log(supabaseUser.value)
-  }else{
-    console.log(supabaseUser.value)
-  }
+onMounted(async () => {
   await user_refresh();
   await data_refresh();
   await personal_refresh();

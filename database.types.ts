@@ -9,6 +9,26 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      admin: {
+        Row: {
+          id: string
+        }
+        Insert: {
+          id?: string
+        }
+        Update: {
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admin_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "app_user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       app_user: {
         Row: {
           created_at: string
