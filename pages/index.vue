@@ -170,6 +170,7 @@ const {data: user, error: user_error, refresh: user_refresh} = useAsyncData('get
   if(supabaseUser.value){
     const { data , error} = await supabase.from("app_user").select("*").eq('id', supabaseUser.value.id);
     if(error){
+      console.log(error);
       return null;
     }
     return data[0];
@@ -182,6 +183,7 @@ const {data: user, error: user_error, refresh: user_refresh} = useAsyncData('get
 const {data: list, error: data_error, refresh: data_refresh} = useAsyncData('get_data', async () => {
   const { data: list , error} = await supabase.from("seat").select("*, app_user(*)").order("number", {ascending: true});
   if(error){
+    console.log(error);
     return null;
   }
   let group_list = []
@@ -217,6 +219,7 @@ const {data: your_seat, error, refresh: personal_refresh} = useAsyncData('get_pe
   if(supabaseUser.value){
   const { data: personal , error} = await supabase.from("seat").select("*, app_user(*)").eq("user_id", supabaseUser.value.id);
   if(error){
+    console.log(error);
     return null;
   }
   return personal;
@@ -229,6 +232,8 @@ const {data: your_seat, error, refresh: personal_refresh} = useAsyncData('get_pe
 onMounted(async() => {
   if(supabaseUser.value){
   console.log(supabaseUser.value)
+  }else{
+    console.log(supabaseUser.value)
   }
   await user_refresh();
   await data_refresh();
