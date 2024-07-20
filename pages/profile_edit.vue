@@ -54,7 +54,7 @@
         <FormItem>
           <FormLabel>綽號/暱稱</FormLabel>
           <FormControl>
-            <Input type="text" placeholder="請輸入您的綽號或暱稱（請注意中文不要超過六個字）" v-bind="componentField" />
+            <Input type="text" placeholder="請輸入您的綽號或暱稱，中文不超過六個字" v-bind="componentField" />
           </FormControl>
           <FormMessage />
         </FormItem>

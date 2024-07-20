@@ -6,9 +6,10 @@
           <div class="font-mono text-xl">
             <NuxtLink
               to="/"
-              class="font-mono text-2xl mx-2"
+              class="font-mono mx-2 justify-center"
             >
-              STP預約系統
+                <Icon name='ph:house' size='20'/>
+                STP預約系統
             </NuxtLink>
           </div>
         </div>

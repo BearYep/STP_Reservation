@@ -47,7 +47,7 @@
       <DialogContent v-else-if="user" class="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>確認要預約這個座位嗎?</DialogTitle>
-          <DialogDescription>
+          <DialogDescription class="text-red-500 font-bold">
             請確認以下的資料，送出後無法更改。
           </DialogDescription>
         </DialogHeader>
