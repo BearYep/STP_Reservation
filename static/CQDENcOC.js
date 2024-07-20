@@ -1,1 +1,0 @@
-import{_ as c}from"./DlAUqK2U.js";import{c as s,o as t,a as e}from"./J7RkhkxY.js";const o={},n=e("div",{class:"flex items-center justify-center h-[100vh]"},[e("div",{class:"flex flex-col items-center space-y-4"},[e("div",null,"登入中...")])],-1),r=[n];function a(l,i){return t(),s("div",null,r)}const d=c(o,[["render",a]]);export{d as default};
