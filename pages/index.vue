@@ -154,9 +154,9 @@
       :your_seat="your_seat"
     />
   </div>
-</div>
-  <div v-else class='flex justify-center gap-5 text-gray-600'>請登入以查看預約列表及進行預約服務。
   </div>
+  <!-- <div v-else class='flex h-[50px] justify-center gap-5 text-gray-600'>請登入以查看預約列表及進行預約服務。
+  </div> -->
 </div>
 </div>
 </div>

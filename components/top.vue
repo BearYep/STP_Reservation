@@ -6,7 +6,7 @@
           <div class="font-mono text-xl">
             <NuxtLink
               to="/"
-              class="font-mono mx-2 justify-center"
+              class="font-mono mx-2"
             >
                 <Icon name='ph:house' size='20'/>
                 STP預約系統
@@ -15,7 +15,6 @@
         </div>
         <div class="flex flex-wrap ml-auto">
           <div v-if="supabaseUser">
-            <!-- {{ supabaseUser.id }} , email: {{ supabaseUser.email }}, Hi!! {{ supabaseUser.user_metadata.full_name }} -->
             <DropdownMenu>
               <DropdownMenuTrigger as-child>
                 <Button
