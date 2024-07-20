@@ -167,11 +167,16 @@ const supabaseUser = useSupabaseUser();
 
 
 const {data: user, error: user_error, refresh: user_refresh} = useAsyncData('get_user', async () => {
-  const { data , error} = await supabase.from("app_user").select("*").eq('id', supabaseUser.value.id);
-  if(error){
-    return null;
+  if(supabaseUser.value){
+    const { data , error} = await supabase.from("app_user").select("*").eq('id', supabaseUser.value.id);
+    if(error){
+      return null;
+    }
+    return data[0];
   }
-  return data[0];
+  else{
+    return null
+  }
 })
 
 const {data: list, error: data_error, refresh: data_refresh} = useAsyncData('get_data', async () => {
@@ -209,14 +214,22 @@ async function handleList(list: any){
 }
 
 const {data: your_seat, error, refresh: personal_refresh} = useAsyncData('get_personal_data', async () => {
+  if(supabaseUser.value){
   const { data: personal , error} = await supabase.from("seat").select("*, app_user(*)").eq("user_id", supabaseUser.value.id);
   if(error){
     return null;
   }
   return personal;
+  }
+  else{
+    return null;
+  }
 })
 
 onMounted(async() => {
+  if(supabaseUser.value){
+  console.log(supabaseUser.value)
+  }
   await user_refresh();
   await data_refresh();
   await personal_refresh();
