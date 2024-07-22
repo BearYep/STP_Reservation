@@ -4,8 +4,18 @@
   <div class="container mx-auto px-4 flex flex-col gap-2">
   <div>
     <div class="font-bold text-2xl">STP暑期黑馬營劃位</div>
-    <div class="text-gray-500">說明文字...</div>
-    <img src="https://images.plurk.com/5nmKlgKPdXuUiCcLjdLHvR.jpg" class='w-[1364px]'>
+    <div class="flex flex-col gap-3">
+      <div class="text-gray-500">此為黑馬營工作坊當日座位表，大家可以選擇自己喜歡的座位哦！</div>
+      <div class="text-gray-500">⚠️登入後，首先填寫基本資料，接著便可回首頁進行劃位！</div>
+
+      <div class="text-gray-500">⚠️為維護同學個人隱私，劃位表中僅會出現暱稱以及填答之MBTI，請放心作答～</div>
+    </div>
+    <div class="flex flex-col gap-2" v-if="supabaseUser">
+      <img src="https://images.plurk.com/5nmKlgKPdXuUiCcLjdLHvR.jpg" class='w-[1364px]' v-if="list && list![10][0].status === 'lock'" />
+      <img src="https://images.plurk.com/3xuQoP21F56d2etfm1nEVE.png" class='w-[1364px]' v-else-if="list && list![12][0].status === 'lock'" />
+      <img src="https://images.plurk.com/1EcEKeTi9ycYfvaU0XKPEK.png" class='w-[1364px]' v-else />
+      <div class='flex justify-center gap-5 text-gray-500'>▲ 座位表</div>
+    </div>
   </div>
   <div class='border-2 h-[1px]'></div>
   <div class='container mx-auto overflow-x-auto'>
